@@ -78,6 +78,7 @@ curl --location --request GET 'https://walmart-demo-app.herokuapp.com/customer?c
 
 ### Update
 Returns an updated customer.
+Throws 404 if customer does not exist.
 ```shell
 curl --location --request PATCH 'https://walmart-demo-app.herokuapp.com/customer?customerId=6' \
 --header 'Content-Type: application/json' \
