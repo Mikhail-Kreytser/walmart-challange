@@ -46,7 +46,7 @@ The app is deployed to heroku. If testing locally use `localhost:8080`
 ## Customer
 
 ### Create
-
+Returns a new customer.
 ```shell
 curl --location --request POST 'https://walmart-demo-app.herokuapp.com/customer' \
 --header 'Content-Type: application/json' \
@@ -63,7 +63,8 @@ curl --location --request POST 'https://walmart-demo-app.herokuapp.com/customer'
 ```
 
 ### Get
-
+Returns a customer.
+Throws 404 if customer does not exist.
 ```shell
 curl --location --request GET 'https://walmart-demo-app.herokuapp.com/customer?customerId=6'
 ```
@@ -76,7 +77,7 @@ curl --location --request GET 'https://walmart-demo-app.herokuapp.com/customer?c
 ```
 
 ### Update
-
+Returns an updated customer.
 ```shell
 curl --location --request PATCH 'https://walmart-demo-app.herokuapp.com/customer?customerId=6' \
 --header 'Content-Type: application/json' \
@@ -95,7 +96,8 @@ curl --location --request PATCH 'https://walmart-demo-app.herokuapp.com/customer
 ## Order
 
 ### Create
-
+Returns a new order.
+Throws 412 if customerId is invalid.
 ```shell
 curl --location --request POST 'https://walmart-demo-app.herokuapp.com/order' \
 --header 'Content-Type: application/json' \
@@ -112,7 +114,8 @@ curl --location --request POST 'https://walmart-demo-app.herokuapp.com/order' \
 ```
 
 ### Get
-
+Returns an order.
+Throws 404 if order does not exist.
 ```shell
 curl --location --request GET 'https://walmart-demo-app.herokuapp.com/order?orderId=9'
 ```
@@ -125,7 +128,8 @@ curl --location --request GET 'https://walmart-demo-app.herokuapp.com/order?orde
 ```
 
 ### Add Item
-
+Returns an updated order line.
+Throws 412 if qty, orderId or itemId is invalid.
 ```shell
 curl --location --request PUT 'https://walmart-demo-app.herokuapp.com/order/addItem?orderId=9&itemId=3' \
 --header 'Content-Type: application/json' \
@@ -143,6 +147,8 @@ curl --location --request PUT 'https://walmart-demo-app.herokuapp.com/order/addI
 ```
 
 ### Remove Item
+Returns an updated order line or 204 if the order line is deleted due to the qty being < 0. 
+Throws 412 if order line does not exist or if the qty, orderId or itemId is invalid.
 
 ```shell
 curl --location --request PUT 'https://walmart-demo-app.herokuapp.com/order/removeItem?orderId=9&itemId=3' \
@@ -163,6 +169,7 @@ curl --location --request PUT 'https://walmart-demo-app.herokuapp.com/order/remo
 ## Recommendation
 
 ### Get
+Returns a list of items that have the most qty
 
 ```shell
 curl --location --request GET 'https://walmart-demo-app.herokuapp.com/recommendation?numberOfTopItems=3'
@@ -184,3 +191,12 @@ curl --location --request GET 'https://walmart-demo-app.herokuapp.com/recommenda
   }
 ]
 ```
+
+# Pros and cons to your recommendation approach
+
+## Pro
+* Simple spring boot app with postgresql as the database.
+* Recommendation computation is done via sql
+
+## Cons
+* A lot of files are needed in order to create a simple api endpoint.

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.net.URI;
 
@@ -34,6 +35,10 @@ public class OrderController {
     public ResponseEntity<OrderLine> addItem(@RequestParam(value = "orderId") long orderId,
                                              @RequestParam(value = "itemId") long itemId,
                                              @RequestBody long qty) {
+        if (qty <= 0) {
+            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED,
+                    String.format("Qty: %d is invalid", qty));
+        }
         return ResponseEntity.ok(_orderService.addItem(orderId, itemId, qty));
     }
 
@@ -41,6 +46,10 @@ public class OrderController {
     public ResponseEntity<OrderLine> removeItem(@RequestParam(value = "orderId") long orderId,
                                                 @RequestParam(value = "itemId") long itemId,
                                                 @RequestBody long qty) {
+        if (qty <= 0) {
+            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED,
+                    String.format("Qty: %d is invalid", qty));
+        }
         OrderLine orderLine = _orderService.removeItem(orderId, itemId, qty);
         if (orderLine != null) {
             return ResponseEntity.ok(orderLine);
