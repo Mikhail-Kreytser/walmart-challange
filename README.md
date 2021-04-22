@@ -41,6 +41,7 @@ mvn spring-boot:run
 If you see an error like: `database "walmart" does not exist"` or `password authentication failed for user postgres` please make sure the database is set up correctly
 
 # Curl
+The app is deployed to heroku. If testing locally use `localhost:8080`
 
 ## Customer
 
