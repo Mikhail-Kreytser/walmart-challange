@@ -126,7 +126,7 @@ curl --location --request GET 'https://walmart-demo-app.herokuapp.com/order?orde
 ### Add Item
 
 ```shell
-curl --location --request PUT 'https://walmart-demo-app.herokuapp.com/order/addItem?orderId=9&itemId=16' \
+curl --location --request PUT 'https://walmart-demo-app.herokuapp.com/order/addItem?orderId=9&itemId=3' \
 --header 'Content-Type: application/json' \
 --data-raw '11'
 ```
