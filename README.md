@@ -43,6 +43,8 @@ If you see an error like: `database "walmart" does not exist"` or `password auth
 # Curl
 The app is deployed to heroku. If testing locally use `localhost:8080`
 
+Due to being deployed on the free teir in Heroku, if the endpoint is inactive the app will go into a sleep state. It might take a few seconds to a minute to wake up and process requests. If the request is taking a long time please try again a minute or so. It the app doesn't wake up feel free to reachout to me and I can restart it. 
+
 ## Customer
 
 ### Create
